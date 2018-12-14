@@ -18,6 +18,9 @@
 .gameImages{
     height: 150px;
     width: 150px;
-    margin: 50px;
-    justify-content: center;
+   
+}
+
+.resultName{
+    margin-top: 100px
 }

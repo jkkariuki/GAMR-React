@@ -10,7 +10,7 @@
     "server": "nodemon server.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
     "build": "node scripts/build.js",
-    "start": "node server.js",
+    "start": "concurrently \"nodemon server.js\" \"npm run client\"",
     "heroku-postbuild": "cd client && yarn install && yarn install --only=dev --no-shrinkwrap && npm run build",
     "installDeps": "yarn && cd client && yarn",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,9 +18,11 @@
   "dependencies": {
     "axios": "^0.16.2",
     "body-parser": "^1.17.2",
+    "concurrently": "^4.0.1",
     "cors": "^2.8.5",
     "express": "^4.16.2",
     "mongoose": "^4.11.7",
+    "nodemon": "^1.11.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "2.1.0"
   },

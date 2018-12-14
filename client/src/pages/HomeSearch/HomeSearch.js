@@ -5,13 +5,16 @@ import Nav from "../../components/Nav";
 import { Col, Row, Container } from "../../components/Grid";
 import "./HomeSearch.css";
 import { FormBtn, Input } from "../../components/Form/"
+import { release } from "os";
 
 class HomeSearch extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             gameTitle: "",
-            results: []
+            results: [],
+            video_ids: []
+
         };
     }
 
@@ -26,6 +29,49 @@ class HomeSearch extends React.Component {
         this.setState({
             [name]: value
         });
+    }
+
+    searchYoutube = (results) =>{
+        console.log("searching youtube")
+        console.log(results)
+        let titleArray = [];
+        let video_ids = []
+
+        // titleArray = this.state.results.map(game  => {
+        //     return game[i].name
+        //     console.log(titleArray)
+        // })
+        
+        for (var i = 0; i< results.length; i++){
+           titleArray.push(results[i].name)
+
+         
+        }
+        console.log(titleArray)
+        for(var x = 0; x < titleArray.length; x++){
+            API.searchTrailer(titleArray[x])
+            .then(res => {
+                console.log(res) 
+                video_ids.push(res);
+                console.log(video_ids)
+            })
+            .catch(err => console.log("Save error: " + err));
+        }
+        
+       
+            
+        
+    }
+
+    saveGame = (savedTitle, savedImage, savedDeck, releaseDate)=>{
+        API.saveGame({
+            gameTitle: savedTitle,
+            image_url: savedImage,
+            description: savedDeck,
+            release_date: releaseDate
+        })
+            .then(res => console.log(res))
+            .catch(err => console.log("Save error: " + err));
     }
 
     handleSubmit = (event) => {
@@ -43,6 +89,7 @@ class HomeSearch extends React.Component {
                     results: resultArray
                 });
                 console.log("Results: " + resultArray)
+                this.searchYoutube(this.state.results)
             })
             .catch(err => console.log("There is an error" + err));
     }
@@ -67,20 +114,30 @@ class HomeSearch extends React.Component {
                         </Col>
                     </Row>
                     <Row>
-                        <h1>Search Results</h1>
                         <Col size="md-12  sm-12">
+                        <h1 style={{textAlign:"center"}}>Search Results</h1>
+
                             <Results>
+
                                 {this.state.results.map(game => {
                                     return (
+
                                         <ResultItem>
                                             <Row>
-                                            <Col size="md-4"><strong>
-                                                {game.name}
-                                            </strong></Col>
-                                            <Col size="md-8"> <img className="gameImages" src={game.image.medium_url}></img>
-                                            <p>{game.deck}</p></Col>                                           
+                                                <Col style={{ textAlign: "center" }} size="lg-4 md-4 sm-4">
+                                                    <strong style={{ margin: "auto" }} className="resultName">          {game.name}                                                </strong>
+                                                </Col>
+                                                <Col style={{ textAlign: "center" }} size="lg-4 md-4 sm-4"> 
+                                                    <img className="gameImages" src={game.image.medium_url}></img>
+                                                </Col>
+                                                
+                                                <Col style={{ textAlign: "center" }} size="lg-4 md-4 sm-4">
+                                                    <p>{game.deck}</p>
+                                                    <strong>Released:</strong>{game.original_release_date}
+                                                    <button onClick={() => this.saveGame(game.name, game.image.medium_url, game.deck, game.original_release_date)}>Save to your games list</button><button>Watch the Youtube Trailor</button>
+                                                </Col>
                                             </Row>
-                                            
+
                                         </ResultItem>
                                     );
                                 })}
@@ -88,8 +145,8 @@ class HomeSearch extends React.Component {
                         </Col>
                     </Row>
                 </Container>
-                
-                    
+
+
             </div>
         )
     }

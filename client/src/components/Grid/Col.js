@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 class Col extends React.Component {
 
   render () {
-    const { size, children } = this.props
+    const { style, size, children } = this.props
 
     const klass = size.split(" ").map(size => "col-" + size).join(" ");
 
     return (
-      <div className={klass}> 
+      <div style={style} className={klass}> 
           {children}
       </div>
     );
@@ -18,7 +18,9 @@ class Col extends React.Component {
 
 Col.props = {
   size: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
+  style: PropTypes.string,
+
 }
 
 export default Col;
