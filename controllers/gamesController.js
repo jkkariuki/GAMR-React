@@ -27,10 +27,19 @@ const gameFunction ={
             .create(req.body)
             .then(dbModel=> res.json(dbModel))
             .catch(err => console.log(err));
-    }
+    },
+
+    getSaved: function (req, res) {
+        console.log("hello")
+        db.game
+            .find()
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+    },
 }
 
 router.post("/api/games", gameFunction.create)
+router.get("/api/games/saved", gameFunction.getSaved)
 
 router.use(function (req, res) {
     res.sendFile(path.join(__dirname, "../client/build/index.html"));

@@ -13,9 +13,15 @@ class HomeSearch extends React.Component {
         this.state = {
             gameTitle: "",
             results: [],
-            video_ids: []
+            video_ids: [],
+            saved: []
+
 
         };
+    }
+
+    componentDidMount(){
+        this.loadGames()
     }
 
     handleInputChange = (event) => {
@@ -74,6 +80,25 @@ class HomeSearch extends React.Component {
             .catch(err => console.log("Save error: " + err));
     }
 
+    loadGames = () => {
+        console.log("load games hit");
+    
+        API.getSaved()
+            .then(res => {
+                console.log(res.data)
+                console.log("hello")
+                let savedArray = []
+                for(let x = 0; x < res.data.length; x++){
+                    savedArray.push(res.data[x])
+                }
+                this.setState({saved: savedArray})
+                console.log(this.state.saved[0].gameTitle)
+
+            })
+            .catch(err => console.log(err));
+
+    }
+
     handleSubmit = (event) => {
         event.preventDefault();
         API.getGame({
@@ -95,12 +120,17 @@ class HomeSearch extends React.Component {
     }
 
     render() {
+       
         return (
+
             <div>
                 <Container id="homeSearchContainer">
                     <Row id="searchRow">
                         <Col size="md-12  sm-12">
                             <h1 id="titleHeader">GAMR.</h1>
+                            <button>
+                                <a href="/saved" className="navbar-brand">GAMR</a>
+                            </button>                           
                         </Col>
                     </Row>
                     <Row>
@@ -120,8 +150,7 @@ class HomeSearch extends React.Component {
                             <Results>
 
                                 {this.state.results.map(game => {
-                                    return (
-
+                                    return(
                                         <ResultItem>
                                             <Row>
                                                 <Col style={{ textAlign: "center" }} size="lg-4 md-4 sm-4">
@@ -144,11 +173,29 @@ class HomeSearch extends React.Component {
                             </Results>
                         </Col>
                     </Row>
+                    <Row>
+                        <Results>
+                            {this.state.saved.map(game => {
+                            return(
+                                <ResultItem >
+                                    <p>{"Title: " + game.gameTitle}</p>
+                                        <br />
+                                    <img className="gameImages" src={game.image_url}/>
+                                        <br />
+                                    <p>{"Title: " + game.gameTitle}{"About this Game: " + game.description}</p>
+                                        <br />
+                                </ResultItem>
+                            )
+                                
+                            })}
+                        </Results>
+                    
+                        </Row>
                 </Container>
 
 
             </div>
-        )
+        );
     }
 
 }

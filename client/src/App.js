@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HomeSearch from "./pages/HomeSearch";
+import Saved from "./pages/SavedGames";
 import Nav from "./components/Nav/index"
 
 import logo from './logo.svg';
@@ -11,12 +12,13 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Nav/>
-          <Switch>
+        <Nav/>
             <Route exact path="/" component={HomeSearch}/>
-          </Switch>
-          </div>
+            <Route exact path="/saved" component={Saved} />
 
+
+        </div>
+          
       </Router>
     );
   }
