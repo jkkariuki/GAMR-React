@@ -24,7 +24,10 @@ class Nav extends React.Component {
             </button>
             <a href="/" className="navbar-brand">
               GAMR
-            </a>            
+            </a>
+            <button>
+              <a href="/saved" className="navbar-brand">Saved Games</a>
+            </button>               
           </div> 
 
           

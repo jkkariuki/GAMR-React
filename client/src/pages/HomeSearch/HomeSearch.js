@@ -14,14 +14,13 @@ class HomeSearch extends React.Component {
             gameTitle: "",
             results: [],
             video_ids: [],
-            saved: []
-
-
+            saved: [],
+            ignLinks : []
         };
     }
 
     componentDidMount(){
-        this.loadGames()
+        this.ignNewsSearch();
     }
 
     handleInputChange = (event) => {
@@ -37,38 +36,6 @@ class HomeSearch extends React.Component {
         });
     }
 
-    searchYoutube = (results) =>{
-        console.log("searching youtube")
-        console.log(results)
-        let titleArray = [];
-        let video_ids = []
-
-        // titleArray = this.state.results.map(game  => {
-        //     return game[i].name
-        //     console.log(titleArray)
-        // })
-        
-        for (var i = 0; i< results.length; i++){
-           titleArray.push(results[i].name)
-
-         
-        }
-        console.log(titleArray)
-        for(var x = 0; x < titleArray.length; x++){
-            API.searchTrailer(titleArray[x])
-            .then(res => {
-                console.log(res) 
-                video_ids.push(res);
-                console.log(video_ids)
-            })
-            .catch(err => console.log("Save error: " + err));
-        }
-        
-       
-            
-        
-    }
-
     saveGame = (savedTitle, savedImage, savedDeck, releaseDate)=>{
         API.saveGame({
             gameTitle: savedTitle,
@@ -80,24 +47,20 @@ class HomeSearch extends React.Component {
             .catch(err => console.log("Save error: " + err));
     }
 
-    loadGames = () => {
-        console.log("load games hit");
-    
-        API.getSaved()
-            .then(res => {
-                console.log(res.data)
-                console.log("hello")
-                let savedArray = []
-                for(let x = 0; x < res.data.length; x++){
-                    savedArray.push(res.data[x])
-                }
-                this.setState({saved: savedArray})
-                console.log(this.state.saved[0].gameTitle)
-
-            })
-            .catch(err => console.log(err));
+    ignNewsSearch = () => {
+        API.getNews()
+        .then(res => {
+            console.log("news: " + res.data)
+            let newsLinks = []
+            for (let x = 0; x< res.data.length; x++){
+                newsLinks.push(res.data[x])
+            }
+            this.setState({ignLinks: newsLinks});
+        })
+        .catch(err => console.log(err));
 
     }
+   
 
     handleSubmit = (event) => {
         event.preventDefault();
@@ -105,7 +68,6 @@ class HomeSearch extends React.Component {
             gameTitle: (this.state.gameTitle + " ")
         })
             .then(res => {
-                console.log(res.data.results)
                 let resultArray = []
                 for (let x = 0; x < res.data.results.length; x++) {
                     resultArray.push(res.data.results[x])
@@ -113,7 +75,6 @@ class HomeSearch extends React.Component {
                 this.setState({
                     results: resultArray
                 });
-                console.log("Results: " + resultArray)
                 this.searchYoutube(this.state.results)
             })
             .catch(err => console.log("There is an error" + err));
@@ -128,9 +89,7 @@ class HomeSearch extends React.Component {
                     <Row id="searchRow">
                         <Col size="md-12  sm-12">
                             <h1 id="titleHeader">GAMR.</h1>
-                            <button>
-                                <a href="/saved" className="navbar-brand">GAMR</a>
-                            </button>                           
+                                                    
                         </Col>
                     </Row>
                     <Row>
@@ -191,6 +150,7 @@ class HomeSearch extends React.Component {
                         </Results>
                     
                         </Row>
+
                 </Container>
 
 

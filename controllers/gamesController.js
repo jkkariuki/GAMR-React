@@ -36,10 +36,19 @@ const gameFunction ={
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
+
+    remove: function(req,res){
+        db.game
+            .findById({_id: req.params.id})
+            .then(dbModel => dbModel.remove())
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+    }
 }
 
 router.post("/api/games", gameFunction.create)
 router.get("/api/games/saved", gameFunction.getSaved)
+router.delete("/api/games/delete:id", gameFunction.remove)
 
 router.use(function (req, res) {
     res.sendFile(path.join(__dirname, "../client/build/index.html"));

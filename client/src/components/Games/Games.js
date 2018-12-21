@@ -4,9 +4,9 @@ class Games extends React.Component {
     render() {
         return (
             <div className="list-overflow-container">
-              <ul className="list-group">
+              <div className="list-group">
                 {this.props.children}
-              </ul>
+              </div>
             </div>
           );
     }

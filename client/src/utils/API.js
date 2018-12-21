@@ -9,6 +9,15 @@ import axios from "axios";
          //return axios.get("/api/games",  {params:search})
          return axios.get("https://cors-anywhere.herokuapp.com/https://www.giantbomb.com/api/search/?api_key=687d257ace2a1dad49e71172b53403375c11d333&format=json&query=" + search.gameTitle + "&resources=game");
     },
+
+    getNews: function(){
+        return axios.get("https://cors-anywhere.herokuapp.com/https://newsapi.org/v1/articles?source=ign&sortBy=top&apiKey=63e4877bdc6a4e6aa814e270f021ce1f&dataType=json&crossDomain=true&pageSize=5")
+        .then(function(response){
+                
+            console.log(response.data)
+            return response.data;
+        })
+    },
     
     saveGame: function(save){
             return axios.post("/api/games", save);
@@ -20,9 +29,8 @@ import axios from "axios";
     },
     
     searchTrailer: function(title, res){ 
-        console.log(title.gameTitle)
     
-            return axios.get("https://www.googleapis.com/youtube/v3/search?key=AIzaSyDDj_AcWjGNwn1eXlP4bavbvWzlgj6G5Q8&part=snippet&q=" + title + " gameplay trailer&maxResults=1")
+            return axios.get("https://cors-anywhere.herokuapp.com/https://www.googleapis.com/youtube/v3/search?key=AIzaSyDDj_AcWjGNwn1eXlP4bavbvWzlgj6G5Q8&part=snippet&q=" + title + " gameplay trailer&maxResults=1")
             .then(function(response){
                 
                 console.log(response)
@@ -44,5 +52,9 @@ import axios from "axios";
     
     
             // }
-        }       
-     }
+        },
+        
+        delete: function(id){
+            return axios.delete("/api/games/delete" + id)
+        }
+     };
