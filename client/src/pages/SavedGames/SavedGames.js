@@ -31,7 +31,7 @@ class Saved extends React.Component {
                 savedArray.push(res.data[x])
             }
             this.setState({ saved: savedArray });
-            this.searchYoutube(this.state.saved)
+            setTimeout(this.searchYoutube(this.state.saved), 3000)
         })
         .catch(err => console.log(err));
     }

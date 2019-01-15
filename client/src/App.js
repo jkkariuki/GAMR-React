@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HomeSearch from "./pages/HomeSearch";
 import Saved from "./pages/SavedGames";
 import Nav from "./components/Nav/index";
-import BackgroundSlideShow from "react-background-slideshow";
 import logo from './logo.svg';
 import './App.css';
 import image2 from './images/img2.jpg';
@@ -17,14 +16,12 @@ class App extends Component {
       <Router>
 
         <div>
-        <BackgroundSlideShow images={[image2, image3, image5]}>
         
         <Nav/>
 
             <Route exact path="/" component={HomeSearch}/>
             <Route exact path="/saved" component={Saved} />
         
-        </BackgroundSlideShow>
         
         </div>
 
