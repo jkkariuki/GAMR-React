@@ -15,11 +15,11 @@ class HomeSearch extends React.Component {
             results: [],
             video_ids: [],
             saved: [],
-            ignLinks : []
+            ignNews: []
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.ignNewsSearch();
     }
 
@@ -36,7 +36,7 @@ class HomeSearch extends React.Component {
         });
     }
 
-    saveGame = (savedTitle, savedImage, savedDeck, releaseDate)=>{
+    saveGame = (savedTitle, savedImage, savedDeck, releaseDate) => {
         API.saveGame({
             gameTitle: savedTitle,
             image_url: savedImage,
@@ -48,19 +48,22 @@ class HomeSearch extends React.Component {
     }
 
     ignNewsSearch = () => {
+
         API.getNews()
-        .then(res => {
-            console.log("news: " + res.data)
-            let newsLinks = []
-            for (let x = 0; x< res.data.length; x++){
-                newsLinks.push(res.data[x])
-            }
-            this.setState({ignLinks: newsLinks});
-        })
-        .catch(err => console.log(err));
+
+            .then(res => {
+                console.log("news: " + res[0].url)
+                let newsArray = [];
+
+                for (let x = 0; x < res.length; x++) {
+                    newsArray.push(res[x]);
+                }
+                this.setState({ ignNews: newsArray })
+            })
+            .catch(err => console.log(err));
 
     }
-   
+
 
     handleSubmit = (event) => {
         event.preventDefault();
@@ -81,7 +84,7 @@ class HomeSearch extends React.Component {
     }
 
     render() {
-       
+
         return (
 
             <div>
@@ -89,7 +92,7 @@ class HomeSearch extends React.Component {
                     <Row id="searchRow">
                         <Col size="md-12  sm-12">
                             <h1 id="titleHeader">GAMR.</h1>
-                                                    
+
                         </Col>
                     </Row>
                     <Row>
@@ -103,22 +106,26 @@ class HomeSearch extends React.Component {
                         </Col>
                     </Row>
                     <Row>
+
                         <Col size="md-12  sm-12">
-                        <h1 style={{textAlign:"center"}}>Search Results</h1>
 
                             <Results>
 
+
+
                                 {this.state.results.map(game => {
-                                    return(
+
+                                    return (
+
                                         <ResultItem>
                                             <Row>
                                                 <Col style={{ textAlign: "center" }} size="lg-4 md-4 sm-4">
                                                     <strong style={{ margin: "auto" }} className="resultName">          {game.name}                                                </strong>
                                                 </Col>
-                                                <Col style={{ textAlign: "center" }} size="lg-4 md-4 sm-4"> 
+                                                <Col style={{ textAlign: "center" }} size="lg-4 md-4 sm-4">
                                                     <img className="gameImages" src={game.image.medium_url}></img>
                                                 </Col>
-                                                
+
                                                 <Col style={{ textAlign: "center" }} size="lg-4 md-4 sm-4">
                                                     <p>{game.deck}</p>
                                                     <strong>Released:</strong>{game.original_release_date}
@@ -128,28 +135,52 @@ class HomeSearch extends React.Component {
 
                                         </ResultItem>
                                     );
+
                                 })}
+
                             </Results>
                         </Col>
                     </Row>
                     <Row>
                         <Results>
                             {this.state.saved.map(game => {
-                            return(
-                                <ResultItem >
-                                    <p>{"Title: " + game.gameTitle}</p>
+                                return (
+                                    <ResultItem >
+                                        <p>{"Title: " + game.gameTitle}</p>
                                         <br />
-                                    <img className="gameImages" src={game.image_url}/>
+                                        <img className="gameImages" src={game.image_url} />
                                         <br />
-                                    <p>{"Title: " + game.gameTitle}{"About this Game: " + game.description}</p>
+                                        <p>{"Title: " + game.gameTitle}{"About this Game: " + game.description}</p>
                                         <br />
-                                </ResultItem>
-                            )
-                                
+                                    </ResultItem>
+                                )
+
                             })}
                         </Results>
-                    
-                        </Row>
+
+                    </Row>
+                  
+                    <Row>
+                       
+                        <div className="ticker-wrap">
+                       
+                            <div className="ticker">
+
+                                {this.state.ignNews.map((story) => {
+
+                                    return (
+
+                                        <a className="ticker__item" href={story.url}>{story.title}</a>
+
+
+                                    )
+
+                                })}
+
+                                
+                            </div>
+                        </div>
+                    </Row>
 
                 </Container>
 

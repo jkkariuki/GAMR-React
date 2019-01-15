@@ -46,7 +46,8 @@ class Saved extends React.Component {
         for (var i = 0; i < array.length; i++) {
             console.log(array[i].gameTitle)
             titleArray.push(array[i].gameTitle)
-
+            
+    
         }
         console.log(titleArray)
         for (var x = 0; x < titleArray.length; x++) {
@@ -60,7 +61,6 @@ class Saved extends React.Component {
 
                 .catch(err => console.log("Save error: " + err));
         }
-
     }
     deleteGame = id => {
         // console.log("game id " + id );

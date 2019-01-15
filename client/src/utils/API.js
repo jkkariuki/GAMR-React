@@ -11,14 +11,20 @@ import axios from "axios";
     },
 
     getNews: function(){
-        return axios.get("https://cors-anywhere.herokuapp.com/https://newsapi.org/v1/articles?source=ign&sortBy=top&apiKey=63e4877bdc6a4e6aa814e270f021ce1f&dataType=json&crossDomain=true&pageSize=5")
+        return axios.get("https://cors-anywhere.herokuapp.com/https://newsapi.org/v1/articles?source=ign&sortBy=top&pageSize=5&apiKey=63e4877bdc6a4e6aa814e270f021ce1f&dataType=json&crossDomain=true")
+        
         .then(function(response){
-                
-            console.log(response.data)
-            return response.data;
+            let articles = [];
+                for(var i =0 ; i < 5; i++){
+                    articles.push(response.data.articles[i])
+                    console.log(articles)
+                }
+            console.log(articles)
+            return articles
+             
         })
     },
-    
+
     saveGame: function(save){
             return axios.post("/api/games", save);
         },
