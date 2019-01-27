@@ -18,6 +18,7 @@ class Saved extends React.Component {
 
     componentDidMount() {
         this.loadGames();
+
     }
 
     loadGames = () => {
@@ -31,7 +32,7 @@ class Saved extends React.Component {
                 savedArray.push(res.data[x])
             }
             this.setState({ saved: savedArray });
-            setTimeout(this.searchYoutube(this.state.saved), 3000)
+             setTimeout(this.searchYoutube(this.state.saved), 15000)
         })
         .catch(err => console.log(err));
     }
