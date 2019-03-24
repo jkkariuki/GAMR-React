@@ -88,6 +88,7 @@ class HomeSearch extends React.Component {
         return (
 
             <div>
+               
                 <Container id="homeSearchContainer">
                     <Row id="searchRow">
                         <Col size="md-12  sm-12">
@@ -159,11 +160,11 @@ class HomeSearch extends React.Component {
                         </Results>
 
                     </Row>
-                  
+
                     <Row>
-                       
+
                         <div className="ticker-wrap">
-                       
+
                             <div className="ticker">
 
                                 {this.state.ignNews.map((story) => {
@@ -177,7 +178,7 @@ class HomeSearch extends React.Component {
 
                                 })}
 
-                                
+
                             </div>
                         </div>
                     </Row>
