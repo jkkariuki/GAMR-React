@@ -1,0 +1,68 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js install
+
+PATH: 
+  C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Program Files\MongoDB\Server\4.0\bin;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\Owner\AppData\Local\Yarn\bin
+
+Yarn version: 
+  1.15.2
+
+Node version: 
+  10.15.3
+
+Platform: 
+  win32 x64
+
+Trace: 
+  SyntaxError: C:\Users\Owner\Desktop\GAMR-React\package.json: Unexpected token } in JSON at position 975
+      at JSON.parse (<anonymous>)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (C:\Program Files (x86)\Yarn\lib\cli.js:304:30)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:315:13
+
+npm manifest: 
+  {
+    "name": "gamr-react",
+    "version": "1.0.0",
+    "main": "server.js",
+    "engines": {
+      "node": "10.15.3"
+    },
+    "scripts": {
+      "debug": "concurrently \"node --inspect-brk=43240 server.js\" \"npm run client\"",
+      "client": "cd client && yarn start",
+      "server": "nodemon server.js",
+      "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+      "build": "node scripts/build.js",
+      "start": "concurrently \"nodemon server.js\" \"npm run client\"",
+      "heroku-postbuild": "cd client && yarn install && yarn install --only=dev --no-shrinkwrap && npm run build",
+      "installDeps": "yarn && cd client && yarn",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+      "axios": "^0.16.2",
+      "body-parser": "^1.17.2",
+      "concurrently": "^4.0.1",
+      "cors": "^2.8.5",
+      "express": "^4.16.2",
+      "mongoose": "^4.11.7",
+      "nodemon": "^1.11.0",
+      "react-router-dom": "^4.2.2",
+      "react-scripts": "2.1.0",
+    },
+    "devDependencies": {
+      "concurrently": "^4.0.1",
+      "cors": "^2.8.5",
+      "nodemon": "^1.11.0"
+    },
+    "repository": "https://github.com/jkkariuki/GAMR-React.git",
+    "author": "jk <jkkariuki15@gmail.com>",
+    "license": "MIT"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

@@ -1,13 +1,37 @@
-
-
 import axios from "axios";
+import Axios from "axios";
+
  export default {
     getGame: function(search){
         console.log("goodbye")
         console.log(search)
-
+        // var m = require("mithril")
          //return axios.get("/api/games",  {params:search})
-         return axios.get("https://cors-anywhere.herokuapp.com/https://www.giantbomb.com/api/search/?api_key=687d257ace2a1dad49e71172b53403375c11d333&format=json&query=" + search.gameTitle + "&resources=game");
+
+        //  return axios({
+        //     type: 'GET',
+        //     dataType: 'jsonp',
+        //     crossDomain: true,
+        //     jsonp: 'json_callback',
+        //     url: 'https://www.giantbomb.com/api/search/?api_key=f25f7333b1e04db495a7f65290f6db3db10539d1&format=json&query=' + search.gameTitle + '&resources=game',
+        //     // headers: {autorizacion: localStorage.token},
+        //     complete: function() {
+        //         console.log('done');
+        //     },
+        //     success: function(data) {
+        //         console.log(data);
+        //     }
+        // });
+
+        //  return axios.get({
+        //     url: "https://cors-anywhere.herokuapp.com/https://www.giantbomb.com/api/search/?api_key=f25f7333b1e04db495a7f65290f6db3db10539d1&format=json&query=" + search.gameTitle + "&resources=game",
+        //     dataType: "jsonp",
+        //   });
+          
+          
+        
+
+          return axios.get("https://cors-anywhere.herokuapp.com/https://www.giantbomb.com/api/search/?api_key=f25f7333b1e04db495a7f65290f6db3db10539d1&format=json&query=" + search.gameTitle + "&resources=game");
     },
 
     getNews: function(){

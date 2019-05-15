@@ -15,6 +15,8 @@
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
   <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/journal/bootstrap.min.css" />
+  <link rel="stylesheet" href="/vegas.css">
+
   <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -28,7 +30,11 @@
 </head>
 
 <body>
-  <script type="text/javascript" src="scripts/cycle.js/jquery.cycle.all.2.74.js">
+    <div id="root"></div>
+
+   
+
+  <!-- <script type="text/javascript" src="scripts/cycle.js/jquery.cycle.all.2.74.js">
     $(document).ready(function() {
       $('#slideshow').cycle({
       fx: 'fade',
@@ -38,8 +44,8 @@
       timeout:  3500
       });
     });
-  </script>  
-  <div id="root"></div>
+  </script> -->
+  
   <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -51,5 +57,14 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
 </body>
+<script src="/js/vegas/vegas.min.js">
+   
+</script>
+
+<script src="http://code.jquery.com/jquery.min.js">
+
+
+
+</script>
 
 </html>

@@ -6,6 +6,10 @@ import { Col, Row, Container } from "../../components/Grid";
 import "./HomeSearch.css";
 import { FormBtn, Input } from "../../components/Form/"
 import { release } from "os";
+import img2 from '../../images/img2.jpg';
+import img3 from '../../images/img3.jpg';
+import { $, jQuery } from 'jquery';
+
 
 class HomeSearch extends React.Component {
     constructor(props) {
@@ -21,6 +25,9 @@ class HomeSearch extends React.Component {
 
     componentDidMount() {
         this.ignNewsSearch();
+        
+        
+        
     }
 
     handleInputChange = (event) => {
@@ -78,7 +85,7 @@ class HomeSearch extends React.Component {
                 this.setState({
                     results: resultArray
                 });
-                this.searchYoutube(this.state.results)
+                // this.searchYoutube(this.state.results)
             })
             .catch(err => console.log("There is an error" + err));
     }
@@ -87,106 +94,78 @@ class HomeSearch extends React.Component {
 
         return (
 
-            <div>
-               
-                <Container id="homeSearchContainer">
-                    <Row id="searchRow">
-                        <Col size="md-12  sm-12">
-                            <h1 id="titleHeader">GAMR.</h1>
-
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col size="md-12  sm-12">
-                            <form size="col-md-12" id="searchRow" onSubmit={this.handleSubmit}>
-                                <div className="form-group">
-                                    <input name="gameTitle" type="text" value={this.state.gameTitle} onChange={this.handleInputChange} />
-                                    <input type="submit" value="Submit" />
-                                </div>
-                            </form>
-                        </Col>
-                    </Row>
-                    <Row>
-
-                        <Col size="md-12  sm-12">
-
-                            <Results>
-
-
-
-                                {this.state.results.map(game => {
-
-                                    return (
-
-                                        <ResultItem>
-                                            <Row>
-                                                <Col style={{ textAlign: "center" }} size="lg-4 md-4 sm-4">
-                                                    <strong style={{ margin: "auto" }} className="resultName">          {game.name}                                                </strong>
-                                                </Col>
-                                                <Col style={{ textAlign: "center" }} size="lg-4 md-4 sm-4">
-                                                    <img className="gameImages" src={game.image.medium_url}></img>
-                                                </Col>
-
-                                                <Col style={{ textAlign: "center" }} size="lg-4 md-4 sm-4">
-                                                    <p>{game.deck}</p>
-                                                    <strong>Released:</strong>{game.original_release_date}
-                                                    <button onClick={() => this.saveGame(game.name, game.image.medium_url, game.deck, game.original_release_date)}>Save to your games list</button><button>Watch the Youtube Trailor</button>
-                                                </Col>
-                                            </Row>
-
-                                        </ResultItem>
-                                    );
-
-                                })}
-
-                            </Results>
-                        </Col>
-                    </Row>
-                    <Row>
+            <Container id="homeSearchContainer">
+                <ul class="cb-slideshow">
+                    <li><span>Image 01</span></li>
+                    <li><span>Image 02</span></li>
+                    <li><span>Image 03</span></li>
+                    <li><span>Image 04</span></li>
+                    <li><span>Image 05</span></li>
+                    <li><span>Image 06</span></li>
+                </ul>
+                <Row>
+                    <Col size="md-12  sm-12">
+                        <h1 id="titleHeader">GAMR.</h1>
+                    </Col>
+                    <Col size="md-12  sm-12">
+                        <form size="col-md-12" id="searchRow" onSubmit={this.handleSubmit}>
+                            <div className="form-group">
+                                <input name="gameTitle" type="text" value={this.state.gameTitle} onChange={this.handleInputChange} />
+                                <input type="submit" value="Submit" />
+                            </div>
+                        </form>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col size="md-12  sm-12">
                         <Results>
-                            {this.state.saved.map(game => {
+                            {this.state.results.map(game => {
                                 return (
-                                    <ResultItem >
-                                        <p>{"Title: " + game.gameTitle}</p>
-                                        <br />
-                                        <img className="gameImages" src={game.image_url} />
-                                        <br />
-                                        <p>{"Title: " + game.gameTitle}{"About this Game: " + game.description}</p>
-                                        <br />
+                                    <ResultItem>
+                                        <Row>
+                                            <Col style={{ textAlign: "center" }} size="lg-4 md-4 sm-4">
+                                                <strong style={{ margin: "auto" }} className="resultName">{game.name}                                                </strong>
+                                            </Col>
+                                            <Col style={{ textAlign: "center" }} size="lg-4 md-4 sm-4">
+                                                <img className="gameImages" src={game.image.medium_url}></img>
+                                            </Col>
+
+                                            <Col style={{ textAlign: "center" }} size="lg-4 md-4 sm-4">
+                                                <p>{game.deck}</p>
+                                                <strong>Released:</strong>{game.original_release_date}
+                                                <button onClick={() => this.saveGame(game.name, game.image.medium_url, game.deck, game.original_release_date)}>Save to your games list</button><button>Watch the Youtube Trailor</button>
+                                            </Col>
+                                        </Row>
+
                                     </ResultItem>
+                                );
+                            })}
+
+                        </Results>
+                    </Col>
+                </Row>
+                <Row>
+
+                    <div className="ticker-wrap">
+
+                        <div className="ticker">
+
+                            {this.state.ignNews.map((story) => {
+
+                                return (
+
+                                    <a className="ticker__item" href={story.url}>{story.title}</a>
+
+
                                 )
 
                             })}
-                        </Results>
-
-                    </Row>
-
-                    <Row>
-
-                        <div className="ticker-wrap">
-
-                            <div className="ticker">
-
-                                {this.state.ignNews.map((story) => {
-
-                                    return (
-
-                                        <a className="ticker__item" href={story.url}>{story.title}</a>
 
 
-                                    )
-
-                                })}
-
-
-                            </div>
                         </div>
-                    </Row>
-
-                </Container>
-
-
-            </div>
+                    </div>
+                </Row>
+            </Container>
         );
     }
 

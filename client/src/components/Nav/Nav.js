@@ -13,7 +13,7 @@ class Nav extends React.Component {
   render() {
     const { id, style } = this.props
     return (
-      <nav className="navbar  navbar-top">
+      <nav className="navbar  navbar-top" style={{zIndex: 1000}}>
         <div className="container-fluid">
           <div className="navbar-header">
             <button style={{ backgroundColor: "grey" }} type="button" className="collapsed navbar-toggle">
